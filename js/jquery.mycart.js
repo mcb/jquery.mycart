@@ -26,8 +26,7 @@
       clickOnAddToCart: function($addTocart) { },
       afterAddOnCart: function(products, totalPrice, totalQuantity) { },
       clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) { },
-      checkoutCart: function(products, totalPrice, totalQuantity) { },
-      getDiscountPrice: function(products, totalPrice, totalQuantity) { return null; }
+      checkoutCart: function(products, totalPrice, totalQuantity) { }
     };
 
 
@@ -190,7 +189,6 @@
     var idCartTable = 'my-cart-table';
     var idGrandTotal = 'my-cart-grand-total';
     var idEmptyCartMessage = 'my-cart-empty-message';
-    var idDiscountPrice = 'my-cart-discount-price';
     var classProductTotal = 'my-product-total';
     var classAffixMyCartIcon = 'my-cart-icon-affix';
 
@@ -257,22 +255,7 @@
         : '<div class="alert alert-danger" role="alert" id="' + idEmptyCartMessage + '">Your cart is empty</div>'
       );
 
-      var discountPrice = options.getDiscountPrice(products, ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
-      if(products.length && discountPrice !== null) {
-        $cartTable.append(
-          '<tr style="color: red">' +
-          '<td></td>' +
-          '<td><strong>Total (including discount)</strong></td>' +
-          '<td></td>' +
-          '<td></td>' +
-          '<td><strong id="' + idDiscountPrice + '"></strong></td>' +
-          '<td></td>' +
-          '</tr>'
-        );
-      }
-
       showGrandTotal();
-      showDiscountPrice();
     }
     var showModal = function(){
       drawTable();
@@ -286,9 +269,6 @@
     }
     var showGrandTotal = function(){
       $("#" + idGrandTotal).text(options.currencySymbol + MathHelper.getRoundedNumber(ProductManager.getTotalPrice()));
-    }
-    var showDiscountPrice = function(){
-      $("#" + idDiscountPrice).text(options.currencySymbol + MathHelper.getRoundedNumber(options.getDiscountPrice(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity())));
     }
 
     /*
@@ -316,7 +296,6 @@
 
       $cartBadge.text(ProductManager.getTotalQuantity());
       showGrandTotal();
-      showDiscountPrice();
     });
 
     $(document).on('keypress', "." + classProductQuantity, function(evt){
