@@ -101,7 +101,7 @@
         return [];
       }
     }
-    var updatePoduct = function(id, quantity) {
+    var updateProduct = function(id, quantity) {
       var productIndex = getIndexOfProduct(id);
       if(productIndex < 0){
         return false;
@@ -134,7 +134,7 @@
       }
       summary = typeof summary === "undefined" ? "" : summary;
 
-      if(!updatePoduct(id)){
+      if(!updateProduct(id)){
         addProduct(id, name, summary, price, quantity, image);
       }
     }
@@ -167,7 +167,7 @@
     }
 
     objToReturn.getAllProducts = getAllProducts;
-    objToReturn.updatePoduct = updatePoduct;
+    objToReturn.updateProduct = updateProduct;
     objToReturn.setProduct = setProduct;
     objToReturn.clearProduct = clearProduct;
     objToReturn.removeProduct = removeProduct;
@@ -281,7 +281,7 @@
     var updateCart = function(){
       $.each($("." + classProductQuantity), function(){
         var id = $(this).closest("tr").data("id");
-        ProductManager.updatePoduct(id, $(this).val());
+        ProductManager.updateProduct(id, $(this).val());
       });
     }
     var showGrandTotal = function(){
@@ -312,7 +312,7 @@
       var quantity = $(this).val();
 
       $(this).parent("td").next("." + classProductTotal).text(options.currencySymbol + MathHelper.getRoundedNumber(price * quantity));
-      ProductManager.updatePoduct(id, quantity);
+      ProductManager.updateProduct(id, quantity);
 
       $cartBadge.text(ProductManager.getTotalQuantity());
       showGrandTotal();
